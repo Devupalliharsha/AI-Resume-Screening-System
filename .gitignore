@@ -1,0 +1,11 @@
+# Environments
+venv/
+env/
+.env
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Project Outputs (Optional, keeps repo clean)
+results.json
