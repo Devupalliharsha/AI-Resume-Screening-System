@@ -140,7 +140,7 @@ if __name__ == "__main__":
         result = run_pipeline(resume, JOB_DESCRIPTION, ctype, force_bug=bug)
         all_results.append(result)
         print(f"  Score: {result['score']}")
-        print(f"  {result['explanation'][:180]}...")
+        print(f"  {result['explanation']}")
 
     with open("results.json", "w", encoding="utf-8") as f:
         json.dump(all_results, f, indent=2, ensure_ascii=False)
