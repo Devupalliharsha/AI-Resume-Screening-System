@@ -1,58 +1,71 @@
 # 🚀 AI Resume Screening Pipeline
 
-**Innomatics Research Labs — GenAI Orchestration Project**
+### 🏢 *Innomatics Research Labs — GenAI Orchestration Project*
 
 ---
 
 ## 📌 Overview
 
-This project implements a **production-grade AI orchestration pipeline** for evaluating candidate resumes against job descriptions (JD).
+✨ This project implements a **production-grade AI orchestration pipeline** for evaluating candidate resumes against job descriptions (JD).
 
-Unlike traditional single-prompt approaches, this system follows a **modular, multi-stage architecture using LangChain**, ensuring:
+Unlike traditional single-prompt approaches, this system follows a:
 
-* ✅ Structured data extraction
-* ✅ Deterministic and explainable scoring
-* ✅ Reduced hallucinations
-* ✅ Full observability and traceability
+> 🧠 **Modular, multi-stage architecture using LangChain**
 
-The pipeline converts **unstructured resume text → structured JSON → deterministic evaluation → human-readable insights**, making it reliable for real-world hiring workflows.
+### ✅ Key Highlights
+
+* Structured data extraction
+* Deterministic and explainable scoring
+* Reduced hallucinations
+* Full observability and traceability
+
+📊 The pipeline transforms:
+
+```
+Unstructured Resume → Structured JSON → Deterministic Evaluation → Human Insights
+```
 
 ---
 
 ## 🎯 Objective
 
-The goal of this project is to build a **transparent, auditable, and scalable resume evaluation system** that:
+Build a **transparent, auditable, and scalable** resume evaluation system that:
 
-* Eliminates "black-box" LLM decision-making
-* Uses **controlled JSON outputs** instead of free text
-* Applies **deterministic Python logic** for scoring
-* Generates **clear explanations for hiring managers**
-* Provides full traceability using LangSmith
+* ❌ Eliminates black-box LLM decisions
+* ✅ Uses controlled JSON outputs
+* ✅ Applies deterministic Python scoring
+* ✅ Generates clear hiring insights
+* ✅ Enables full traceability with LangSmith
 
 ---
 
 ## 🏗️ System Architecture
 
-The pipeline is divided into **four distinct stages**, each designed for control, accuracy, and modularity.
+The system is divided into **4 powerful stages**:
+
+```
+Extraction → Matching → Scoring → Explanation
+```
 
 ---
 
-### 🔹 Step 1 — Skill Extraction
+## 🔹 Step 1 — Skill Extraction
 
 📁 `chains/extract_chain.py`
 
-**Purpose:**
-Convert unstructured resume text into structured JSON.
+### 🎯 Purpose
 
-**Implementation Details:**
+Convert raw resume text → structured JSON
 
-* Uses `PromptTemplate` + `JsonOutputParser`
+### ⚙️ Implementation
+
+* `PromptTemplate` + `JsonOutputParser`
 * Strict schema enforcement
-* LLM is explicitly instructed:
+* 🚫 No inference allowed
 
-  > *Do NOT infer missing information*
+> “Do NOT infer missing information”
 
-**Output Example:**
+### 📤 Output Example
 
 ```json
 {
@@ -64,14 +77,15 @@ Convert unstructured resume text into structured JSON.
 
 ---
 
-### 🔹 Step 2 — Skill Matching
+## 🔹 Step 2 — Skill Matching
 
 📁 `chains/match_chain.py`
 
-**Purpose:**
-Compare extracted resume data with JD requirements.
+### 🎯 Purpose
 
-**Implementation Details:**
+Compare resume vs job description
+
+### ⚙️ Implementation
 
 * Matches:
 
@@ -79,9 +93,8 @@ Compare extracted resume data with JD requirements.
   * Bonus skills
   * Tools
   * Experience
-* Produces structured comparison JSON
 
-**Output Example:**
+### 📤 Output Example
 
 ```json
 {
@@ -94,20 +107,23 @@ Compare extracted resume data with JD requirements.
 
 ---
 
-### 🔹 Step 3 — Hybrid Scoring
+## 🔹 Step 3 — Hybrid Scoring
 
 📁 `chains/score_chain.py`
 
-**Purpose:**
-Generate a final score out of 100 using **deterministic + AI hybrid logic**
+### 🎯 Purpose
 
-**Design Philosophy:**
+Generate final score (out of 100)
 
-> ❌ Avoid LLM-based math
-> ✅ Use Python for scoring
-> ✅ Use LLM only for qualitative judgment
+### 🧠 Design Philosophy
 
-**Score Distribution:**
+```
+❌ Avoid LLM math  
+✅ Use Python for scoring  
+✅ Use LLM for reasoning
+```
+
+### 📊 Score Breakdown
 
 | Component       | Weight |
 | --------------- | ------ |
@@ -117,35 +133,36 @@ Generate a final score out of 100 using **deterministic + AI hybrid logic**
 | Experience      | 10%    |
 | Relevance (LLM) | 10%    |
 
-**Key Feature:**
+### 🔥 Key Feature
 
-* Uses a **mini LLM chain (`relevance_chain`)** for domain alignment scoring
+* Mini LLM chain → `relevance_chain`
 
 ---
 
-### 🔹 Step 4 — Explanation Generation
+## 🔹 Step 4 — Explanation Generation
 
 📁 `chains/explain_chain.py`
 
-**Purpose:**
-Convert structured results into **human-readable summaries**
+### 🎯 Purpose
 
-**Implementation Details:**
+Convert results → human-friendly insights
 
-* Disables JSON mode
-* Generates **3–8 sentence evaluation summaries**
-* Designed for hiring managers
+### ⚙️ Implementation
+
+* JSON mode disabled
+* Generates **3–8 sentence summaries**
+* Tailored for hiring managers
 
 ---
 
 ## ⚙️ Tech Stack
 
-| Technology    | Purpose                       |
-| ------------- | ----------------------------- |
-| **LangChain** | Pipeline orchestration (LCEL) |
-| **Groq API**  | Ultra-fast LLM inference      |
-| **LangSmith** | Observability & debugging     |
-| **Python**    | Deterministic scoring logic   |
+| 🧩 Technology | 🚀 Purpose                |
+| ------------- | ------------------------- |
+| LangChain     | Pipeline orchestration    |
+| Groq API      | Ultra-fast LLM inference  |
+| LangSmith     | Observability & debugging |
+| Python        | Deterministic scoring     |
 
 ---
 
@@ -154,37 +171,36 @@ Convert structured results into **human-readable summaries**
 ### 🧠 Groq API
 
 * Model: `llama-3.1-8b-instant`
-* Benefits:
 
-  * ⚡ Extremely fast inference
-  * 💸 Free for developers
-  * 🧩 Strong JSON generation capability
+**Benefits:**
+
+* ⚡ Fast inference
+* 💸 Free for developers
+* 🧩 Strong JSON support
 
 ---
 
 ### 🔍 LangSmith
 
 * Full pipeline tracing
-* Debugging support
-* Run comparison (diffing)
-* Performance monitoring
+* Debugging & monitoring
+* Run comparison
 
 ---
 
 ## 📦 Dependencies
 
-Install the following Python packages:
-
 ```bash
 pip install langchain langchain-core langchain-groq langsmith python-dotenv
 ```
 
-### Package Breakdown:
+### 📚 Breakdown
 
-* **langchain / langchain-core** → Core framework for chains & prompts
-* **langchain-groq** → Groq API integration
-* **langsmith** → Execution tracing & debugging
-* **python-dotenv** → Secure environment variable handling
+* `langchain` → Core framework
+* `langchain-core` → Prompt + chain logic
+* `langchain-groq` → Groq integration
+* `langsmith` → Debugging
+* `python-dotenv` → Env handling
 
 ---
 
@@ -192,21 +208,21 @@ pip install langchain langchain-core langchain-groq langsmith python-dotenv
 
 ### 1️⃣ Get API Keys
 
-* **Groq API Key** → [https://console.groq.com/](https://console.groq.com/)
-* **LangSmith API Key** → [https://smith.langchain.com/](https://smith.langchain.com/)
+* Groq → https://console.groq.com/
+* LangSmith → https://smith.langchain.com/
 
 ---
 
 ### 2️⃣ Create Virtual Environment
 
-#### Windows:
+#### 🪟 Windows
 
 ```bash
 python -m venv venv
 .\venv\Scripts\activate
 ```
 
-#### Mac/Linux:
+####  Linux/Mac
 
 ```bash
 python3 -m venv venv
@@ -223,9 +239,9 @@ pip install langchain langchain-core langchain-groq langsmith python-dotenv
 
 ---
 
-### 4️⃣ Configure Environment Variables
+### 4️⃣ Configure Environment
 
-Create a `.env` file in the root directory:
+Create `.env`:
 
 ```env
 GROQ_API_KEY=your_groq_api_key
@@ -242,41 +258,46 @@ LANGCHAIN_PROJECT=resume-screening-innomatics
 python main.py
 ```
 
-### Output:
+---
 
-* Console results
-* `results.json` file
+## 📊 Sample Outputs
 
-📊 Sample Evaluation Results
+### 🟢 Strong Candidate
 
-Below are sample outputs generated by the pipeline for different candidate profiles:
+**Score:** 89/100
 
-🟢 Strong Candidate
-Score: 89/100
-Summary:
-This candidate demonstrates strong alignment with the job requirements, including proficiency in Python, machine learning, and deep learning. They meet most of the required skills and tools, making them a highly suitable candidate.
+> Strong alignment with skills like Python, ML, DL.
 
-🟡 Average Candidate
-Score: 47/100
-Summary:
-This candidate shows partial alignment with the job requirements. While they possess core skills like Python and machine learning, they lack several advanced skills and tools expected for the role.
+---
 
-🔴 Weak Candidate
-Score: 37/100
-Summary:
-This candidate has limited alignment with the required skills. Although they have basic knowledge of Python and machine learning concepts, they do not meet the overall expectations for the role.
+### 🟡 Average Candidate
 
-🐞 Buggy Candidate (Debug Case)
-Score: 47/100
-Summary:
-This test case intentionally introduces a scoring inconsistency to demonstrate debugging using LangSmith. Despite failing the experience requirement, the score reflects an incorrect override, highlighting the importance of traceability.
+**Score:** 47/100
 
-Insight:
-The buggy candidate case highlights how LangSmith helps detect inconsistencies between:
+> Partial match, lacks advanced skills.
 
-Extracted data
-Matching logic
-Final scoring
+---
+
+### 🔴 Weak Candidate
+
+**Score:** 37/100
+
+> Limited alignment, missing key skills.
+
+---
+
+### 🐞 Buggy Candidate
+
+**Score:** 47/100
+
+⚠️ Intentional inconsistency for debugging
+
+**Insight:**
+LangSmith helps detect mismatches in:
+
+* Extracted data
+* Matching logic
+* Final scoring
 
 ---
 
@@ -284,92 +305,88 @@ Final scoring
 
 ### ✅ Deterministic Scoring
 
-* Eliminates hallucinations in numerical output
-* Ensures consistent evaluation
-
----
+* No hallucinated numbers
+* Fully consistent results
 
 ### ✅ Strict JSON Enforcement
 
-* Prevents pipeline crashes
-* Guarantees machine-readable outputs
+* Prevents crashes
+* Ensures structured outputs
 
----
+### ✅ Modular Design
 
-### ✅ Modular Architecture
-
-* Each step is independently testable
-* Easy to scale or replace components
+* Easy testing
+* Easy scaling
 
 ---
 
 ## ⚠️ Edge Case Handling
 
-| Scenario           | Handling Strategy                             |
-| ------------------ | --------------------------------------------- |
-| Missing experience | Defaults to `experience_met = false`          |
-| Empty JD skills    | Denominator capped to prevent division errors |
-| Invalid LLM output | JSON mode enforced strictly                   |
+| Scenario           | Strategy                |
+| ------------------ | ----------------------- |
+| Missing experience | Default = false         |
+| Empty JD skills    | Prevent division errors |
+| Invalid LLM output | Enforce JSON strictly   |
 
 ---
 
 ## 🐞 Debugging with LangSmith
 
-This project includes a **"buggy candidate" test case** for demonstration.
-
-### What Happens:
-
-* The system intentionally overrides:
+### 🔧 Bug Simulation
 
 ```python
 experience_met = True
 ```
 
-### Result:
+### 🔍 Debug Flow
 
-* Score inconsistency appears
-
-### How LangSmith Helps:
-
-* Filter runs using:
+* Filter:
 
 ```
 candidate = buggy
 ```
 
-* Compare:
-
-  * Normal vs Buggy run
-* Identify:
-
-  * Data mismatch
-  * Scoring inconsistency
+* Compare runs
+* Identify mismatches
 
 ---
 
 ## 📊 Key Advantages
 
-* 🔍 Fully transparent pipeline
-* ⚡ High performance using Groq
-* 🧠 Reduced hallucination risk
-* 🛠️ Developer-friendly debugging
-* 📈 Production-ready design
+* 🔍 Transparent pipeline
+* ⚡ High performance
+* 🧠 Reduced hallucinations
+* 🛠️ Easy debugging
+* 📈 Production-ready
 
 ---
 
 ## 🏁 Conclusion
 
-This project demonstrates how to build a **robust, explainable AI system** by combining:
+This project shows how to build a:
+
+> 🧠 **Robust + Explainable AI System**
+
+By combining:
 
 * Structured LLM outputs
 * Deterministic logic
 * Modular orchestration
 
-It serves as a strong foundation for **real-world HR tech, ATS systems, and AI-powered hiring platforms**.
+🎯 Perfect for:
+
+* HR Tech
+* ATS Systems
+* AI Hiring Platforms
 
 ---
 
-## 👨‍💻 Author : Devupalli Harsha
+## 👨‍💻 Author
 
-Developed as part of the **Feb 2026 GenAI Internship**
-at **Innomatics Research Labs**
+**Devupalli Harsha**
+📅 Feb 2026 GenAI Internship
+🏢 Innomatics Research Labs
+
+---
+
+⭐ *If you found this useful, consider starring the repo!*
